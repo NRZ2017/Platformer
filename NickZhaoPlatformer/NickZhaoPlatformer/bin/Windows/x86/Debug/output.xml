@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
+<!-- $TexturePacker:SmartUpdate:d35becf3529b58867fda22457fda4a02:bfb985fa12babb900561be914aece9b1:cdb8f8fad63ecd46fdd48fab4b56a36e$ -->
+<!--Format:
+n  => name of the sprite
+x  => sprite x pos in texture
+y  => sprite y pos in texture
+w  => sprite width (may be trimmed)
+h  => sprite height (may be trimmed)
+pX => x pos of the pivot point (relative to sprite width)
+pY => y pos of the pivot point (relative to sprite height)
+oX => sprite's x-corner offset (only available if trimmed)
+oY => sprite's y-corner offset (only available if trimmed)
+oW => sprite's original width (only available if trimmed)
+oH => sprite's original height (only available if trimmed)
+r => 'y' only set if sprite is rotated
+with polygon mode enabled:
+vertices   => points in sprite coordinate system (x0,y0,x1,y1,x2,y2, ...)
+verticesUV => points in sheet coordinate system (x0,y0,x1,y1,x2,y2, ...)
+triangles  => sprite triangulation, 3 vertex indices per triangle
+-->
+<TextureAtlas imagePath="output.png" width="1018" height="1087">
+  <sprite n="Death/0.png" x="0" y="0" w="100" h="132" pX="0.5" pY="0.5"/>
+  <sprite n="Death/1.png" x="100" y="0" w="95" h="122" pX="0.5" pY="0.5"/>
+  <sprite n="Death/2.png" x="195" y="0" w="94" h="120" pX="0.5" pY="0.5"/>
+  <sprite n="Death/3.png" x="289" y="0" w="97" h="116" pX="0.5" pY="0.5"/>
+  <sprite n="Death/4.png" x="386" y="0" w="99" h="117" pX="0.5" pY="0.5"/>
+  <sprite n="Death/5.png" x="485" y="0" w="114" h="115" pX="0.5" pY="0.5"/>
+  <sprite n="Death/6.png" x="599" y="0" w="124" h="97" pX="0.5" pY="0.5"/>
+  <sprite n="Death/7.png" x="723" y="0" w="124" h="96" pX="0.5" pY="0.5"/>
+  <sprite n="Death/8.png" x="847" y="0" w="125" h="94" pX="0.5" pY="0.5"/>
+  <sprite n="Idle/0.png" x="0" y="132" w="81" h="137" pX="0.5" pY="0.5"/>
+  <sprite n="Idle/1.png" x="81" y="132" w="81" h="137" pX="0.5" pY="0.5"/>
+  <sprite n="Idle/2.png" x="162" y="132" w="81" h="137" pX="0.5" pY="0.5"/>
+  <sprite n="Idle/3.png" x="243" y="132" w="81" h="138" pX="0.5" pY="0.5"/>
+  <sprite n="Idle/4.png" x="324" y="132" w="81" h="138" pX="0.5" pY="0.5"/>
+  <sprite n="Idle/5.png" x="405" y="132" w="81" h="138" pX="0.5" pY="0.5"/>
+  <sprite n="Idle/6.png" x="486" y="132" w="81" h="138" pX="0.5" pY="0.5"/>
+  <sprite n="Idle/7.png" x="567" y="132" w="81" h="138" pX="0.5" pY="0.5"/>
+  <sprite n="Idle/8.png" x="648" y="132" w="81" h="139" pX="0.5" pY="0.5"/>
+  <sprite n="Idle/9.png" x="729" y="132" w="81" h="139" pX="0.5" pY="0.5"/>
+  <sprite n="Idle/10.png" x="810" y="132" w="81" h="139" pX="0.5" pY="0.5"/>
+  <sprite n="Idle/11.png" x="891" y="132" w="81" h="139" pX="0.5" pY="0.5"/>
+  <sprite n="Idle/12.png" x="0" y="271" w="81" h="139" pX="0.5" pY="0.5"/>
+  <sprite n="Idle/13.png" x="81" y="271" w="81" h="138" pX="0.5" pY="0.5"/>
+  <sprite n="Idle/14.png" x="162" y="271" w="81" h="138" pX="0.5" pY="0.5"/>
+  <sprite n="Idle/15.png" x="243" y="271" w="81" h="138" pX="0.5" pY="0.5"/>
+  <sprite n="Idle/16.png" x="324" y="271" w="81" h="138" pX="0.5" pY="0.5"/>
+  <sprite n="Idle/17.png" x="405" y="271" w="81" h="138" pX="0.5" pY="0.5"/>
+  <sprite n="Idle/18.png" x="486" y="271" w="81" h="137" pX="0.5" pY="0.5"/>
+  <sprite n="Idle/19.png" x="567" y="271" w="81" h="137" pX="0.5" pY="0.5"/>
+  <sprite n="Idle/20.png" x="648" y="271" w="81" h="137" pX="0.5" pY="0.5"/>
+  <sprite n="Idle/21.png" x="729" y="271" w="81" h="137" pX="0.5" pY="0.5"/>
+  <sprite n="Jump/0.png" x="810" y="271" w="105" h="137" pX="0.5" pY="0.5"/>
+  <sprite n="Jump/1.png" x="915" y="271" w="103" h="137" pX="0.5" pY="0.5"/>
+  <sprite n="Jump/2.png" x="0" y="410" w="105" h="138" pX="0.5" pY="0.5"/>
+  <sprite n="Jump/3.png" x="105" y="410" w="103" h="137" pX="0.5" pY="0.5"/>
+  <sprite n="Jump/4.png" x="208" y="410" w="103" h="136" pX="0.5" pY="0.5"/>
+  <sprite n="Jump/5.png" x="311" y="410" w="106" h="136" pX="0.5" pY="0.5"/>
+  <sprite n="Jump/6.png" x="417" y="410" w="104" h="136" pX="0.5" pY="0.5"/>
+  <sprite n="Jump/7.png" x="521" y="410" w="105" h="136" pX="0.5" pY="0.5"/>
+  <sprite n="Jump/8.png" x="626" y="410" w="105" h="136" pX="0.5" pY="0.5"/>
+  <sprite n="Jump/9.png" x="731" y="410" w="109" h="135" pX="0.5" pY="0.5"/>
+  <sprite n="Jump/10.png" x="840" y="410" w="110" h="135" pX="0.5" pY="0.5"/>
+  <sprite n="Jump/11.png" x="0" y="548" w="114" h="134" pX="0.5" pY="0.5"/>
+  <sprite n="Jump/12.png" x="114" y="548" w="114" h="134" pX="0.5" pY="0.5"/>
+  <sprite n="Jump/13.png" x="228" y="548" w="114" h="134" pX="0.5" pY="0.5"/>
+  <sprite n="Jump/14.png" x="342" y="548" w="114" h="133" pX="0.5" pY="0.5"/>
+  <sprite n="Running/0.png" x="456" y="548" w="119" h="129" pX="0.5" pY="0.5"/>
+  <sprite n="Running/1.png" x="575" y="548" w="118" h="130" pX="0.5" pY="0.5"/>
+  <sprite n="Running/2.png" x="693" y="548" w="118" h="132" pX="0.5" pY="0.5"/>
+  <sprite n="Running/3.png" x="811" y="548" w="113" h="132" pX="0.5" pY="0.5"/>
+  <sprite n="Running/4.png" x="0" y="682" w="106" h="134" pX="0.5" pY="0.5"/>
+  <sprite n="Running/5.png" x="106" y="682" w="103" h="133" pX="0.5" pY="0.5"/>
+  <sprite n="Running/6.png" x="209" y="682" w="102" h="132" pX="0.5" pY="0.5"/>
+  <sprite n="Running/7.png" x="311" y="682" w="100" h="134" pX="0.5" pY="0.5"/>
+  <sprite n="Running/8.png" x="411" y="682" w="96" h="134" pX="0.5" pY="0.5"/>
+  <sprite n="Running/9.png" x="507" y="682" w="95" h="135" pX="0.5" pY="0.5"/>
+  <sprite n="Running/10.png" x="602" y="682" w="95" h="133" pX="0.5" pY="0.5"/>
+  <sprite n="Running/11.png" x="697" y="682" w="99" h="133" pX="0.5" pY="0.5"/>
+  <sprite n="Running/12.png" x="796" y="682" w="102" h="134" pX="0.5" pY="0.5"/>
+  <sprite n="Running/13.png" x="898" y="682" w="108" h="130" pX="0.5" pY="0.5"/>
+  <sprite n="Running/14.png" x="0" y="817" w="116" h="126" pX="0.5" pY="0.5"/>
+  <sprite n="Running/15.png" x="116" y="817" w="118" h="127" pX="0.5" pY="0.5"/>
+  <sprite n="Running/16.png" x="234" y="817" w="110" h="128" pX="0.5" pY="0.5"/>
+  <sprite n="Running/17.png" x="344" y="817" w="102" h="129" pX="0.5" pY="0.5"/>
+  <sprite n="Running/18.png" x="446" y="817" w="103" h="130" pX="0.5" pY="0.5"/>
+  <sprite n="Running/19.png" x="549" y="817" w="104" h="131" pX="0.5" pY="0.5"/>
+  <sprite n="Running/20.png" x="653" y="817" w="98" h="132" pX="0.5" pY="0.5"/>
+  <sprite n="Running/21.png" x="751" y="817" w="98" h="135" pX="0.5" pY="0.5"/>
+  <sprite n="Running/22.png" x="849" y="817" w="94" h="135" pX="0.5" pY="0.5"/>
+  <sprite n="Running/23.png" x="0" y="952" w="104" h="135" pX="0.5" pY="0.5"/>
+  <sprite n="Running/24.png" x="104" y="952" w="106" h="135" pX="0.5" pY="0.5"/>
+  <sprite n="Running/25.png" x="210" y="952" w="109" h="135" pX="0.5" pY="0.5"/>
+  <sprite n="Running/26.png" x="319" y="952" w="112" h="133" pX="0.5" pY="0.5"/>
+</TextureAtlas>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/VisitorDL8/Documents/Visual Studio 2017/Projects/NickZhaoPlatformer/NickZhaoPlatformer/Content/SpriteSheet.png</SourceFile>
-  <SourceTime>2017-11-05T13:19:14.8205706-08:00</SourceTime>
-  <DestFile>C:/Users/VisitorDL8/Documents/Visual Studio 2017/Projects/NickZhaoPlatformer/NickZhaoPlatformer/Content/bin/Windows/SpriteSheet.xnb</DestFile>
-  <DestTime>2017-11-05T13:28:11.737599-08:00</DestTime>
+  <SourceFile>C:/Users/NickZhao/Desktop/Platformer/NickZhaoPlatformer/NickZhaoPlatformer/Content/SpriteSheet.png</SourceFile>
+  <SourceTime>2017-11-12T13:21:17.0598857-08:00</SourceTime>
+  <DestFile>C:/Users/NickZhao/Desktop/Platformer/NickZhaoPlatformer/NickZhaoPlatformer/Content/bin/Windows/SpriteSheet.xnb</DestFile>
+  <DestTime>2017-11-12T13:24:15.7888565-08:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2017-03-01T07:05:36-08:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

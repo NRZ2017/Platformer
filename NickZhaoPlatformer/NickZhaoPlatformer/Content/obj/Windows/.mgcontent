@@ -4,7 +4,7 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/VisitorDL8/Documents/Visual Studio 2017/Projects/NickZhaoPlatformer/NickZhaoPlatformer/Content/SpriteSheet.png</File>
-    <File>C:/Users/VisitorDL8/Documents/Visual Studio 2017/Projects/NickZhaoPlatformer/NickZhaoPlatformer/Content/sheet.png</File>
+    <File>C:/Users/NickZhao/Desktop/Platformer/NickZhaoPlatformer/NickZhaoPlatformer/Content/SpriteSheet.png</File>
+    <File>C:/Users/NickZhao/Desktop/Platformer/NickZhaoPlatformer/NickZhaoPlatformer/Content/sheet.png</File>
   </SourceFiles>
 </SourceFileCollection>
