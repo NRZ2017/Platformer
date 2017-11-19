@@ -69,6 +69,10 @@ namespace NickZhaoPlatformer
             Rotation = rotation;
         }
 
+        public virtual void Update(GameTime gameTime)
+        {
+
+        }
 
         public virtual void Draw(SpriteBatch sb)
         {
