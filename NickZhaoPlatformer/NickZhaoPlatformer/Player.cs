@@ -18,8 +18,11 @@ namespace NickZhaoPlatformer
         float velocity = 0;
         float gravity = 0.5f; //the closer jumpForce and gravity the slower the jump
         float jumpForce = -10;  //the further jumpForce and gravity the faster the jump or fall
-        float ground = 0;
+        float ground;
         bool isAir = false;
+        float screenHeight;
+
+
         public enum States
         {
             Idle,
@@ -34,23 +37,21 @@ namespace NickZhaoPlatformer
             Up,
             Down
         }
-       public Dictionary<States, Animation> dictionary;
-        public Player(Vector2 position, Texture2D image, Color tint) : base(position, image, tint)
+        public Dictionary<States, Animation> dictionary;
+        public Player(Vector2 position, Texture2D image, Color tint, float screenHeight) : base(position, image, tint)
         {
             dictionary = new Dictionary<States, Animation>();
             speed = new Vector2(0, 0);
+            //ground = screenHeight - 500;
+            this.screenHeight = screenHeight;
+
+            ground = screenHeight - 137;
+
         }
 
         public override void Update(GameTime gameTime)
         {
             KeyboardState ks = Keyboard.GetState();
-           frameIndex++;
-            if (frameIndex >= dictionary[CurrentState].frames.Count)
-            {
-                frameIndex = 0;
-            }
-
-            SourceRectangle = dictionary[CurrentState].frames[frameIndex];
 
 
             if (!isAir && ks.IsKeyDown(Keys.Up))
@@ -59,8 +60,14 @@ namespace NickZhaoPlatformer
                 isAir = true;
             }
 
+            if (Position.Y < ground)
+            {
+                isAir = true;
+            }
+
             if (isAir)
             {
+                CurrentState = Player.States.Jump;
                 Position.Y += velocity;
                 velocity += gravity;
             }
@@ -71,6 +78,14 @@ namespace NickZhaoPlatformer
                 velocity = 0;
                 Position.Y = ground;
             }
+
+            
+            frameIndex++;
+            if (frameIndex >= dictionary[CurrentState].frames.Count)
+            {
+                frameIndex = 0;
+            }
+            SourceRectangle = dictionary[CurrentState].frames[frameIndex];
 
             base.Update(gameTime);
 

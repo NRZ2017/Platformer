@@ -18,11 +18,15 @@ namespace NickZhaoPlatformer
         Animation jump;
         Animation idle;
         Animation death;
-
+        Platforms platforms;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.IsFullScreen = true;
             Content.RootDirectory = "Content";
+
+            graphics.PreferredBackBufferWidth = 1920;
+            graphics.PreferredBackBufferHeight = 1080;
         }
 
         /// Sprite : basic
@@ -32,7 +36,7 @@ namespace NickZhaoPlatformer
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            player = new Player(new Vector2(100, 300), Content.Load<Texture2D>("sheet"), Color.White);
+            player = new Player(new Vector2(100, 1020), Content.Load<Texture2D>("sheet"), Color.White, GraphicsDevice.Viewport.Height);
             run = new Animation();
             jump = new Animation();
             idle = new Animation();
@@ -41,6 +45,7 @@ namespace NickZhaoPlatformer
             player.dictionary.Add(Player.States.Jump, jump);
             player.dictionary.Add(Player.States.Idle, idle);
             player.dictionary.Add(Player.States.Death, death);
+            platforms = new Platforms(new Vector2(130, 100), Content.Load<Texture2D>("MyPlatforms"), Color.White);
             base.Initialize();
 
 
@@ -104,18 +109,21 @@ namespace NickZhaoPlatformer
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            
+
             player.Position += player.speed;
             KeyboardState ks = Keyboard.GetState();
+
+            if (ks.IsKeyDown(Keys.Escape))
+            {
+                Exit();
+            }
 
             if (ks.IsKeyDown(Keys.Right))
             {
                 player.CurrentState = Player.States.Run;
                 player.CurrentDirection = Player.Direction.Right;
                 player.speed.X = 5;
-            }
-            else if (ks.IsKeyDown(Keys.Up))
-            {
-                player.CurrentState = Player.States.Jump;
             }
             else if (ks.IsKeyDown(Keys.Down))
             {
@@ -134,6 +142,7 @@ namespace NickZhaoPlatformer
                 player.speed.X = 0;
             }
             player.Update(gameTime);
+
             base.Update(gameTime);
         }
 
@@ -157,6 +166,7 @@ namespace NickZhaoPlatformer
             {
                 player.Effect = SpriteEffects.None;
             }
+            platforms.Draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
         }
