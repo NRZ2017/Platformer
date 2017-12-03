@@ -15,12 +15,14 @@ namespace NickZhaoPlatformer
         public Direction CurrentDirection;
         private int frameIndex;
         public Vector2 speed;
-        float velocity = 0;
-        float gravity = 0.5f; //the closer jumpForce and gravity the slower the jump
-        float jumpForce = -10;  //the further jumpForce and gravity the faster the jump or fall
-        float ground;
+        public float velocity = 0;
+        public float gravity = 0.2f; //the closer jumpForce and gravity the slower the jump
+        public float jumpForce = -15;  //the further jumpForce and gravity the faster the jump or fall
+        public float ground;
         bool isAir = false;
         float screenHeight;
+        TimeSpan frameRate = TimeSpan.FromMilliseconds(1000 / 30);
+        TimeSpan animTimer = TimeSpan.Zero;
 
 
         public enum States
@@ -44,8 +46,9 @@ namespace NickZhaoPlatformer
             speed = new Vector2(0, 0);
             //ground = screenHeight - 500;
             this.screenHeight = screenHeight;
+            Scale = 0.5f;
 
-            ground = screenHeight - 137;
+            ground = screenHeight - 70;
 
         }
 
@@ -79,16 +82,34 @@ namespace NickZhaoPlatformer
                 Position.Y = ground;
             }
 
-            
-            frameIndex++;
-            if (frameIndex >= dictionary[CurrentState].frames.Count)
-            {
-                frameIndex = 0;
-            }
-            SourceRectangle = dictionary[CurrentState].frames[frameIndex];
+            Animate(gameTime);
 
             base.Update(gameTime);
 
+        }
+
+        public void Animate(GameTime gameTime)
+        {
+            animTimer += gameTime.ElapsedGameTime;
+            if (animTimer > frameRate)
+            {
+                animTimer = TimeSpan.Zero;
+
+                frameIndex++;
+
+                if (frameIndex >= dictionary[CurrentState].frames.Count)
+                {
+                    if (CurrentState == States.Jump)
+                    {
+                        frameIndex = dictionary[CurrentState].frames.Count - 3;
+                    }
+                    else
+                    {
+                        frameIndex = 0;
+                    }
+                }
+                SourceRectangle = dictionary[CurrentState].frames[frameIndex];
+            }
         }
 
     }

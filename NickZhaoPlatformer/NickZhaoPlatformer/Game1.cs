@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Xml.Linq;
 using System.Linq;
+using System;
 
 namespace NickZhaoPlatformer
 {
@@ -19,14 +20,18 @@ namespace NickZhaoPlatformer
         Animation idle;
         Animation death;
         Platforms platforms;
+        Texture2D singlePixel;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.IsFullScreen = true;
+            //graphics.IsFullScreen = true;
             Content.RootDirectory = "Content";
+            IsMouseVisible = true;
 
             graphics.PreferredBackBufferWidth = 1920;
             graphics.PreferredBackBufferHeight = 1080;
+            Window.Title = "Hello";
         }
 
         /// Sprite : basic
@@ -45,7 +50,7 @@ namespace NickZhaoPlatformer
             player.dictionary.Add(Player.States.Jump, jump);
             player.dictionary.Add(Player.States.Idle, idle);
             player.dictionary.Add(Player.States.Death, death);
-            platforms = new Platforms(new Vector2(130, 100), Content.Load<Texture2D>("MyPlatforms"), Color.White);
+            platforms = new Platforms(new Vector2(841, 790), Content.Load<Texture2D>("MyPlatforms"), Color.White);
             base.Initialize();
 
 
@@ -71,7 +76,7 @@ namespace NickZhaoPlatformer
                     run.frames.Add(new Rectangle(x, y, w, h));
                 }
 
-                else if(element.Attribute("n").Value.Contains("Jump"))
+                else if (element.Attribute("n").Value.Contains("Jump"))
                 {
                     jump.frames.Add(new Rectangle(x, y, w, h));
                 }
@@ -85,6 +90,8 @@ namespace NickZhaoPlatformer
                 }
             }
 
+            singlePixel = new Texture2D(GraphicsDevice, 1, 1);
+            singlePixel.SetData(new Color[] { Color.White });
             // player.dictionary.Add(Player.States.Run, run.frames);
             //Factory Function
             //loop through doc.Root's children and load the sprites into the correct animation
@@ -99,7 +106,7 @@ namespace NickZhaoPlatformer
         protected override void UnloadContent()
         {
             // TODO: Unload any non ContentManager content here
-           
+
         }
 
         /// <summary>
@@ -109,10 +116,15 @@ namespace NickZhaoPlatformer
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            
+            MouseState ms = Mouse.GetState();
 
             player.Position += player.speed;
             KeyboardState ks = Keyboard.GetState();
+
+            Vector2 diff = platforms.Position - player.Position;
+            float angle = (float)Math.Atan2(diff.Y, diff.X);
+
+            Window.Title = $"X: {ms.X}, Y: {ms.Y}, Angle: {MathHelper.ToDegrees(angle)}";
 
             if (ks.IsKeyDown(Keys.Escape))
             {
@@ -141,6 +153,22 @@ namespace NickZhaoPlatformer
                 player.CurrentState = Player.States.Idle;
                 player.speed.X = 0;
             }
+            if (player.Hitbox.Intersects(platforms.Hitbox))
+            {
+                if (angle < -15 && angle > -180 + 15)
+                {
+
+                }
+                if (angle > 15 && angle < 180 - 15)
+                {
+                    player.velocity = 0;
+
+                }
+                else
+                {
+                    player.speed = new Vector2(0,0);
+                }
+            }
             player.Update(gameTime);
 
             base.Update(gameTime);
@@ -167,7 +195,9 @@ namespace NickZhaoPlatformer
                 player.Effect = SpriteEffects.None;
             }
             platforms.Draw(spriteBatch);
+            //spriteBatch.Draw(singlePixel, platforms.Hitbox, Color.Blue);
             spriteBatch.End();
+
             base.Draw(gameTime);
         }
     }
