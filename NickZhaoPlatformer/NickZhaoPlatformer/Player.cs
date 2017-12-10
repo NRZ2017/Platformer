@@ -14,8 +14,9 @@ namespace NickZhaoPlatformer
         public States CurrentState;
         public Direction CurrentDirection;
         private int frameIndex;
-        public Vector2 speed;
-        public float velocity = 0;
+
+        public Vector2 velocity;
+
         public float gravity = 0.2f; //the closer jumpForce and gravity the slower the jump
         public float jumpForce = -15;  //the further jumpForce and gravity the faster the jump or fall
         public float ground;
@@ -39,27 +40,68 @@ namespace NickZhaoPlatformer
             Up,
             Down
         }
+
+
+        public override Rectangle Hitbox
+        {
+            get
+            {
+                return new Rectangle((int)(Position.X - Origin.X * Scale), (int)(Position.Y - Origin.Y * Scale) + 2, (int)(SourceRectangle.Width * Scale), (int)(SourceRectangle.Height * Scale));
+            }
+        }
+
         public Dictionary<States, Animation> dictionary;
         public Player(Vector2 position, Texture2D image, Color tint, float screenHeight) : base(position, image, tint)
         {
             dictionary = new Dictionary<States, Animation>();
-            speed = new Vector2(0, 0);
+            velocity = new Vector2(0, 0);
             //ground = screenHeight - 500;
             this.screenHeight = screenHeight;
             Scale = 0.5f;
 
             ground = screenHeight - 70;
 
+            //origin
+            Origin = new Vector2(SourceRectangle.Width / 2, SourceRectangle.Height);
+
         }
 
+        bool runOnce = true;
         public override void Update(GameTime gameTime)
         {
-            KeyboardState ks = Keyboard.GetState();
+            Animate(gameTime);
+            Origin = new Vector2(SourceRectangle.Width / 2, SourceRectangle.Height);
 
+            KeyboardState ks = Keyboard.GetState();
+            Position += velocity;
+
+            if (ks.IsKeyDown(Keys.Right))
+            {
+                CurrentState = Player.States.Run;
+                CurrentDirection = Player.Direction.Right;
+                velocity.X = 5;
+            }
+            else if (ks.IsKeyDown(Keys.Down))
+            {
+                CurrentState = Player.States.Death;
+            }
+            else if (ks.IsKeyDown(Keys.Left))
+            {
+                CurrentState = Player.States.Run;
+
+                velocity.X = -5;
+                CurrentDirection = Player.Direction.Left;
+            }
+            else
+            {
+                CurrentState = Player.States.Idle;
+                velocity.X = 0;
+            }
 
             if (!isAir && ks.IsKeyDown(Keys.Up))
             {
-                velocity += jumpForce;
+                velocity.Y += jumpForce;
+                Position += velocity;
                 isAir = true;
             }
 
@@ -67,22 +109,20 @@ namespace NickZhaoPlatformer
             {
                 isAir = true;
             }
+            else
+            {
+                isAir = false;
+                velocity.Y = 0;
+                Position.Y = ground;
+            }
 
             if (isAir)
             {
                 CurrentState = Player.States.Jump;
-                Position.Y += velocity;
-                velocity += gravity;
+                velocity.Y += gravity;
             }
 
-            if (Position.Y > ground)
-            {
-                isAir = false;
-                velocity = 0;
-                Position.Y = ground;
-            }
 
-            Animate(gameTime);
 
             base.Update(gameTime);
 

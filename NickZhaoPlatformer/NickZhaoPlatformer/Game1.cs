@@ -118,58 +118,44 @@ namespace NickZhaoPlatformer
         {
             MouseState ms = Mouse.GetState();
 
-            player.Position += player.speed;
+            
             KeyboardState ks = Keyboard.GetState();
 
             Vector2 diff = platforms.Position - player.Position;
-            float angle = (float)Math.Atan2(diff.Y, diff.X);
+            float angle = MathHelper.ToDegrees( (float)Math.Atan2(diff.Y, diff.X));
 
-            Window.Title = $"X: {ms.X}, Y: {ms.Y}, Angle: {MathHelper.ToDegrees(angle)}";
+            Window.Title = $"X: {ms.X}, Y: {ms.Y}, Angle: {angle}";
 
             if (ks.IsKeyDown(Keys.Escape))
             {
                 Exit();
             }
 
-            if (ks.IsKeyDown(Keys.Right))
+            
+            if (player.Hitbox.Intersects(platforms.Hitbox))
             {
-                player.CurrentState = Player.States.Run;
-                player.CurrentDirection = Player.Direction.Right;
-                player.speed.X = 5;
-            }
-            else if (ks.IsKeyDown(Keys.Down))
-            {
-                player.CurrentState = Player.States.Death;
-            }
-            else if (ks.IsKeyDown(Keys.Left))
-            {
-                player.CurrentState = Player.States.Run;
+                if (angle < -15 && angle > -180 + 15 ) //also we are moving UP
+                {
 
-                player.speed.X = -5;
-                player.CurrentDirection = Player.Direction.Left;
+                }
+                else if (angle > 15 && angle < 180 - 15 && player.velocity.Y > 0) //also we are moving DOWN
+                {
+                    //set the top of the platform to our new ground
+                    player.velocity.Y = 0;
+                    player.CurrentState = Player.States.Idle;
+                    player.ground = platforms.Top;
+                }
+                else if(player.velocity.Y != 0)
+                {
+                    player.velocity.X = 0;
+                }
             }
             else
             {
-                player.CurrentState = Player.States.Idle;
-                player.speed.X = 0;
-            }
-            if (player.Hitbox.Intersects(platforms.Hitbox))
-            {
-                if (angle < -15 && angle > -180 + 15)
-                {
-
-                }
-                if (angle > 15 && angle < 180 - 15)
-                {
-                    player.velocity = 0;
-
-                }
-                else
-                {
-                    player.speed = new Vector2(0,0);
-                }
+                player.ground = GraphicsDevice.Viewport.Height - 70;
             }
             player.Update(gameTime);
+
 
             base.Update(gameTime);
         }
@@ -195,7 +181,10 @@ namespace NickZhaoPlatformer
                 player.Effect = SpriteEffects.None;
             }
             platforms.Draw(spriteBatch);
-            //spriteBatch.Draw(singlePixel, platforms.Hitbox, Color.Blue);
+            //spriteBatch.Draw(singlePixel, player.Hitbox, Color.Blue * 0.40f);
+            //spriteBatch.Draw(singlePixel, player.Position, Color.Red);
+            //spriteBatch.Draw(singlePixel, platforms.Hitbox, Color.Red * 0.40f);
+            //spriteBatch.Draw(singlePixel, platforms.Position, Color.Blue );
             spriteBatch.End();
 
             base.Draw(gameTime);
