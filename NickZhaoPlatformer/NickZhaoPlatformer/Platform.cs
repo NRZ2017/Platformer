@@ -8,9 +8,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace NickZhaoPlatformer
 {
-    class Platforms : Sprite
+    class Platform : Sprite
     {
-
+        
 
         //overrite the hitbox to add a offset
 
@@ -31,11 +31,12 @@ namespace NickZhaoPlatformer
             }
         }
 
-        public Platforms(Vector2 position, Texture2D image, Color tint) : base(position, image, tint)
+        public Platform(Vector2 position, Texture2D image, Color tint) : base(position, image, tint)
         {
-            Scale = 2;
+            Scale = 1.5f;
             SourceRectangle = new Rectangle(41, 38, 132, 69);
             Origin = new Vector2(SourceRectangle.Width / 2, SourceRectangle.Height / 2);
+            
         }
 
 

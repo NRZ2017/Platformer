@@ -18,7 +18,7 @@ namespace NickZhaoPlatformer
         public Vector2 velocity;
 
         public float gravity = 0.2f; //the closer jumpForce and gravity the slower the jump
-        public float jumpForce = -15;  //the further jumpForce and gravity the faster the jump or fall
+        public float jumpForce = -10;  //the further jumpForce and gravity the faster the jump or fall
         public float ground;
         bool isAir = false;
         float screenHeight;
@@ -51,7 +51,8 @@ namespace NickZhaoPlatformer
         }
 
         public Dictionary<States, Animation> dictionary;
-        public Player(Vector2 position, Texture2D image, Color tint, float screenHeight) : base(position, image, tint)
+        public Player(Vector2 position, Texture2D image, Color tint, float screenHeight) 
+            : base(position, image, tint)
         {
             dictionary = new Dictionary<States, Animation>();
             velocity = new Vector2(0, 0);
@@ -96,7 +97,7 @@ namespace NickZhaoPlatformer
             {
                 CurrentState = Player.States.Idle;
                 velocity.X = 0;
-            }
+            }            
 
             if (!isAir && ks.IsKeyDown(Keys.Up))
             {
@@ -126,6 +127,11 @@ namespace NickZhaoPlatformer
 
             base.Update(gameTime);
 
+        }
+
+        public override void Draw(SpriteBatch sb)
+        {
+            base.Draw(sb);
         }
 
         public void Animate(GameTime gameTime)

@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using System.Xml.Linq;
 using System.Linq;
 using System;
+using System.Collections.Generic;
 
 namespace NickZhaoPlatformer
 {
@@ -19,7 +20,9 @@ namespace NickZhaoPlatformer
         Animation jump;
         Animation idle;
         Animation death;
-        Platforms platforms;
+        //Platform platform;
+        List<Platform> platforms = new List<Platform>(5);
+
         Texture2D singlePixel;
 
         public Game1()
@@ -31,7 +34,7 @@ namespace NickZhaoPlatformer
 
             graphics.PreferredBackBufferWidth = 1920;
             graphics.PreferredBackBufferHeight = 1080;
-            Window.Title = "Hello";
+
         }
 
         /// Sprite : basic
@@ -50,7 +53,11 @@ namespace NickZhaoPlatformer
             player.dictionary.Add(Player.States.Jump, jump);
             player.dictionary.Add(Player.States.Idle, idle);
             player.dictionary.Add(Player.States.Death, death);
-            platforms = new Platforms(new Vector2(841, 790), Content.Load<Texture2D>("MyPlatforms"), Color.White);
+
+            platforms.Add(new Platform(new Vector2(415, 800), Content.Load<Texture2D>("MyPlatforms"), Color.White));
+            platforms.Add(new Platform(new Vector2(800, 800), Content.Load<Texture2D>("MyPlatforms"), Color.White));
+            platforms.Add(new Platform(new Vector2(500, 600), Content.Load<Texture2D>("MyPlatforms"), Color.White));
+
             base.Initialize();
 
 
@@ -118,47 +125,66 @@ namespace NickZhaoPlatformer
         {
             MouseState ms = Mouse.GetState();
 
-            
+
             KeyboardState ks = Keyboard.GetState();
 
-            Vector2 diff = platforms.Position - player.Position;
-            float angle = MathHelper.ToDegrees( (float)Math.Atan2(diff.Y, diff.X));
 
-            Window.Title = $"X: {ms.X}, Y: {ms.Y}, Angle: {angle}";
+
+            Window.Title = $"X: {ms.X}, Y: {ms.Y}";
 
             if (ks.IsKeyDown(Keys.Escape))
             {
                 Exit();
             }
 
-            
-            if (player.Hitbox.Intersects(platforms.Hitbox))
-            {
-                if (angle < -15 && angle > -180 + 15 ) //also we are moving UP
-                {
 
-                }
-                else if (angle > 15 && angle < 180 - 15 && player.velocity.Y > 0) //also we are moving DOWN
-                {
-                    //set the top of the platform to our new ground
-                    player.velocity.Y = 0;
-                    player.CurrentState = Player.States.Idle;
-                    player.ground = platforms.Top;
-                }
-                else if(player.velocity.Y != 0)
-                {
-                    player.velocity.X = 0;
-                }
-            }
-            else
+            bool onPlatform = false;
+            for (int i = 0; i < platforms.Count; i++)
             {
-                player.ground = GraphicsDevice.Viewport.Height - 70;
+                if (player.Hitbox.Intersects(platforms[i].Hitbox))
+                {
+                    onPlatform = true;
+                    Vector2 diff = platforms[i].Position - player.Position;
+                    float angle = MathHelper.ToDegrees((float)Math.Atan2(diff.Y, diff.X));
+
+
+
+                    if (angle < -15 && angle > -180 + 15) //also we are moving UP
+                    {
+
+                    }
+                    else if (angle > 15 && angle < 180 - 15 && player.velocity.Y > 0) //also we are moving DOWN
+                    {
+                        //set the top of the platform to our new ground
+                        player.velocity.Y = 0;
+                        player.CurrentState = Player.States.Idle;
+                        player.Position.Y = platforms[i].Top;
+                        player.ground = platforms[i].Top;
+                    }
+                    else if (
+                        player.velocity.Y != 0 && //shrink or grow angle to remove this line
+                        Math.Abs(player.Position.X - platforms[i].Position.X) > (platforms[i].Hitbox.Width / 2) &&
+                        ((player.CurrentDirection == Player.Direction.Left && player.Position.X > platforms[i].Position.X) ||
+                        (player.CurrentDirection == Player.Direction.Right && player.Position.X < platforms[i].Position.X))
+                        )
+                    {
+                        player.velocity.X = 0;
+                    }
+                }
+
             }
+
+            if (!onPlatform)
+            {
+                player.ground = GraphicsDevice.Viewport.Height - 70; //only run this line if you don't intersect with ANY platform
+            }
+
             player.Update(gameTime);
 
 
             base.Update(gameTime);
         }
+
 
         /// <summary>
         /// This is called when the game should draw itself.
@@ -180,11 +206,15 @@ namespace NickZhaoPlatformer
             {
                 player.Effect = SpriteEffects.None;
             }
-            platforms.Draw(spriteBatch);
+            for (int j = 0; j < platforms.Count; j++)
+            {
+                platforms[j].Draw(spriteBatch);
+            }
             //spriteBatch.Draw(singlePixel, player.Hitbox, Color.Blue * 0.40f);
-            //spriteBatch.Draw(singlePixel, player.Position, Color.Red);
-            //spriteBatch.Draw(singlePixel, platforms.Hitbox, Color.Red * 0.40f);
-            //spriteBatch.Draw(singlePixel, platforms.Position, Color.Blue );
+            spriteBatch.Draw(singlePixel, player.Position, Color.Red);
+            // spriteBatch.Draw(singlePixel, platforms.Hitbox, Color.Red * 0.40f);
+
+            // spriteBatch.Draw(singlePixel, platform.Position, Color.Blue);
             spriteBatch.End();
 
             base.Draw(gameTime);
