@@ -20,8 +20,9 @@ namespace NickZhaoPlatformer
         Animation jump;
         Animation idle;
         Animation death;
-        //Platform platform;
-        List<Platform> platforms = new List<Platform>(5);
+
+        List<SolidPlatform> solidPlatforms = new List<SolidPlatform>();
+        List<Platform> platforms = new List<Platform>();
 
         Texture2D singlePixel;
 
@@ -54,10 +55,12 @@ namespace NickZhaoPlatformer
             player.dictionary.Add(Player.States.Idle, idle);
             player.dictionary.Add(Player.States.Death, death);
 
-            platforms.Add(new Platform(new Vector2(415, 800), Content.Load<Texture2D>("MyPlatforms"), Color.White));
-            platforms.Add(new Platform(new Vector2(800, 800), Content.Load<Texture2D>("MyPlatforms"), Color.White));
-            platforms.Add(new Platform(new Vector2(500, 600), Content.Load<Texture2D>("MyPlatforms"), Color.White));
-
+            platforms.Add(new Platform(new Vector2(276, 912), Content.Load<Texture2D>("MyPlatforms"), Color.White, 1.5f));
+            platforms.Add(new Platform(new Vector2(626, 697), Content.Load<Texture2D>("MyPlatforms"), Color.White, 1.5f));
+            platforms.Add(new Platform(new Vector2(1013, 529), Content.Load<Texture2D>("MyPlatforms"), Color.White, 1.5f));
+            platforms.Add(new Platform(new Vector2(1391, 280), Content.Load<Texture2D>("MyPlatforms"), Color.White, 1.5f));
+            platforms.Add(new Platform(new Vector2(1728, 50), Content.Load<Texture2D>("MyPlatforms"), Color.White, 1.5f));
+            solidPlatforms.Add(new SolidPlatform(new Vector2(1223, 785), Content.Load<Texture2D>("MyPlatforms"), Color.White, 1.5f));
             base.Initialize();
 
 
@@ -137,7 +140,7 @@ namespace NickZhaoPlatformer
                 Exit();
             }
 
-
+                    player.Update(gameTime);
             bool onPlatform = false;
             for (int i = 0; i < platforms.Count; i++)
             {
@@ -174,12 +177,43 @@ namespace NickZhaoPlatformer
 
             }
 
-            if (!onPlatform)
+            for (int q = 0; q < solidPlatforms.Count; q++)
             {
-                player.ground = GraphicsDevice.Viewport.Height - 70; //only run this line if you don't intersect with ANY platform
+                if (player.Hitbox.Intersects(solidPlatforms[q].Hitbox))
+                {
+                    onPlatform = true;
+                    Vector2 diff = solidPlatforms[q].Position - player.Position;
+                    float angle = MathHelper.ToDegrees((float)Math.Atan2(diff.Y, diff.X));
+                    if (angle < -15 && angle > -180 + 15 && player.velocity.Y < 0) //also we are moving UP
+                    {
+                        player.velocity.Y = 0;
+                    }
+                    if (angle > 15 && angle < 180 - 15 && player.velocity.Y > 0)
+                    {
+                        player.velocity.Y = 0;
+                        player.CurrentState = Player.States.Idle;
+                        player.Position.Y = solidPlatforms[q].Top;
+                        player.ground = solidPlatforms[q].Top;
+                    }
+                    else if(player.velocity.Y != 0 && //shrink or grow angle to remove this line
+                        Math.Abs(player.Position.X - solidPlatforms[q].Position.X) > (solidPlatforms[q].Hitbox.Width / 2) &&
+                        ((player.CurrentDirection == Player.Direction.Left && player.Position.X > solidPlatforms[q].Position.X) ||
+                        (player.CurrentDirection == Player.Direction.Right && player.Position.X < solidPlatforms[q].Position.X))
+                        )
+                    {
+                        player.velocity.X = 0;
+                    }
+                    
+                }
+
             }
 
-            player.Update(gameTime);
+            if (!onPlatform)
+            {
+                player.ground = GraphicsDevice.Viewport.Height - 20; //only run this line if you don't intersect with ANY platform
+            }
+
+
 
 
             base.Update(gameTime);
@@ -210,11 +244,19 @@ namespace NickZhaoPlatformer
             {
                 platforms[j].Draw(spriteBatch);
             }
+            for (int z = 0; z < solidPlatforms.Count; z++)
+            {
+                solidPlatforms[z].Draw(spriteBatch);
+            }
             //spriteBatch.Draw(singlePixel, player.Hitbox, Color.Blue * 0.40f);
-            spriteBatch.Draw(singlePixel, player.Position, Color.Red);
-            // spriteBatch.Draw(singlePixel, platforms.Hitbox, Color.Red * 0.40f);
+            // spriteBatch.Draw(singlePixel, player.Position, Color.Red);
+            //for (int i = 0; i < solidPlatforms.Count; i++)
+           // {
+           //     spriteBatch.Draw(singlePixel, solidPlatforms[i].Hitbox, Color.Red * 0.40f);
+          //  }
+           
 
-            // spriteBatch.Draw(singlePixel, platform.Position, Color.Blue);
+          //  spriteBatch.Draw(singlePixel, platform.Position, Color.Blue);
             spriteBatch.End();
 
             base.Draw(gameTime);

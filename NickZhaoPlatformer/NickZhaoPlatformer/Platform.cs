@@ -22,7 +22,7 @@ namespace NickZhaoPlatformer
             }
         }
 
-        private int offset = 20;
+        protected int offset = 20;
         public override Rectangle Hitbox
         {
             get
@@ -31,9 +31,10 @@ namespace NickZhaoPlatformer
             }
         }
 
-        public Platform(Vector2 position, Texture2D image, Color tint) : base(position, image, tint)
+        public Platform(Vector2 position, Texture2D image, Color tint, float scale) 
+            : base(position, image, tint)
         {
-            Scale = 1.5f;
+            Scale = scale;
             SourceRectangle = new Rectangle(41, 38, 132, 69);
             Origin = new Vector2(SourceRectangle.Width / 2, SourceRectangle.Height / 2);
             

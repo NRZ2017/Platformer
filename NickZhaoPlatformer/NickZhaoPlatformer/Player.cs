@@ -24,7 +24,7 @@ namespace NickZhaoPlatformer
         float screenHeight;
         TimeSpan frameRate = TimeSpan.FromMilliseconds(1000 / 30);
         TimeSpan animTimer = TimeSpan.Zero;
-
+        int JumpCount = 0;
 
         public enum States
         {
@@ -68,6 +68,7 @@ namespace NickZhaoPlatformer
         }
 
         bool runOnce = true;
+        KeyboardState LastState = Keyboard.GetState();
         public override void Update(GameTime gameTime)
         {
             Animate(gameTime);
@@ -97,7 +98,7 @@ namespace NickZhaoPlatformer
             {
                 CurrentState = Player.States.Idle;
                 velocity.X = 0;
-            }            
+            }
 
             if (!isAir && ks.IsKeyDown(Keys.Up))
             {
@@ -105,7 +106,14 @@ namespace NickZhaoPlatformer
                 Position += velocity;
                 isAir = true;
             }
-
+            else if (isAir && ks.IsKeyDown(Keys.Up) && !LastState.IsKeyDown(Keys.Up) && JumpCount == 0)
+            {
+                velocity.Y = jumpForce;
+                Position += velocity;
+                isAir = true;
+                JumpCount++;
+            }
+            
             if (Position.Y < ground)
             {
                 isAir = true;
@@ -115,6 +123,7 @@ namespace NickZhaoPlatformer
                 isAir = false;
                 velocity.Y = 0;
                 Position.Y = ground;
+                JumpCount = 0;
             }
 
             if (isAir)
@@ -124,7 +133,7 @@ namespace NickZhaoPlatformer
             }
 
 
-
+            LastState = ks;
             base.Update(gameTime);
 
         }
