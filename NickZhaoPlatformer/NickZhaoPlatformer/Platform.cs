@@ -14,7 +14,7 @@ namespace NickZhaoPlatformer
 
         //overrite the hitbox to add a offset
 
-        public float Top
+        public virtual float Top
         {
             get
             {

@@ -60,6 +60,7 @@ namespace NickZhaoPlatformer
             platforms.Add(new Platform(new Vector2(1013, 529), Content.Load<Texture2D>("MyPlatforms"), Color.White, 1.5f));
             platforms.Add(new Platform(new Vector2(1391, 280), Content.Load<Texture2D>("MyPlatforms"), Color.White, 1.5f));
             platforms.Add(new Platform(new Vector2(1728, 50), Content.Load<Texture2D>("MyPlatforms"), Color.White, 1.5f));
+            solidPlatforms.Add(new SolidPlatform(new Vector2(1000, 785), Content.Load<Texture2D>("MyPlatforms"), Color.White, 1.5f));
             solidPlatforms.Add(new SolidPlatform(new Vector2(1223, 785), Content.Load<Texture2D>("MyPlatforms"), Color.White, 1.5f));
             base.Initialize();
 
@@ -133,7 +134,7 @@ namespace NickZhaoPlatformer
 
 
 
-            Window.Title = $"X: {ms.X}, Y: {ms.Y}";
+          
 
             if (ks.IsKeyDown(Keys.Escape))
             {
@@ -149,7 +150,7 @@ namespace NickZhaoPlatformer
                     onPlatform = true;
                     Vector2 diff = platforms[i].Position - player.Position;
                     float angle = MathHelper.ToDegrees((float)Math.Atan2(diff.Y, diff.X));
-
+                    
 
 
                     if (angle < -15 && angle > -180 + 15) //also we are moving UP
@@ -184,6 +185,7 @@ namespace NickZhaoPlatformer
                     onPlatform = true;
                     Vector2 diff = solidPlatforms[q].Position - player.Position;
                     float angle = MathHelper.ToDegrees((float)Math.Atan2(diff.Y, diff.X));
+                    Window.Title = $"X: {ms.X}, Y: {ms.Y}, Angle:{angle}";
                     if (angle < -15 && angle > -180 + 15 && player.velocity.Y < 0) //also we are moving UP
                     {
                         player.velocity.Y = 0;
@@ -248,8 +250,13 @@ namespace NickZhaoPlatformer
             {
                 solidPlatforms[z].Draw(spriteBatch);
             }
-            //spriteBatch.Draw(singlePixel, player.Hitbox, Color.Blue * 0.40f);
-            // spriteBatch.Draw(singlePixel, player.Position, Color.Red);
+
+            //for (int i = 0; i < solidPlatforms.Count; i++)
+            //{
+
+            //    spriteBatch.Draw(singlePixel, solidPlatforms[i].Hitbox, Color.Blue * 0.40f);
+            //}
+                // spriteBatch.Draw(singlePixel, player.Position, Color.Red);
             //for (int i = 0; i < solidPlatforms.Count; i++)
            // {
            //     spriteBatch.Draw(singlePixel, solidPlatforms[i].Hitbox, Color.Red * 0.40f);
