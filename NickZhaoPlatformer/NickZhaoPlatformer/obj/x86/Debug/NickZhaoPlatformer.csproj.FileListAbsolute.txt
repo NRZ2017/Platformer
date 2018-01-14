@@ -26,3 +26,5 @@ C:\Users\NickZhao\Desktop\Platformer\NickZhaoPlatformer\NickZhaoPlatformer\obj\x
 C:\Users\NickZhao\Desktop\Platformer\NickZhaoPlatformer\NickZhaoPlatformer\obj\x86\Debug\NickZhaoPlatformer.exe
 C:\Users\NickZhao\Desktop\Platformer\NickZhaoPlatformer\NickZhaoPlatformer\obj\x86\Debug\NickZhaoPlatformer.pdb
 C:\Users\NickZhao\Desktop\Platformer\NickZhaoPlatformer\NickZhaoPlatformer\bin\Windows\x86\Debug\Content\MyPlatforms.xnb
+C:\Users\NickZhao\Desktop\Platformer\NickZhaoPlatformer\NickZhaoPlatformer\bin\Windows\x86\Debug\Content\BackTrump.xnb
+C:\Users\NickZhao\Desktop\Platformer\NickZhaoPlatformer\NickZhaoPlatformer\bin\Windows\x86\Debug\Content\Spikes_in_Sonic_the_Hedgehog_4.xnb

@@ -24,7 +24,7 @@ namespace NickZhaoPlatformer
         {
             get
             {
-                return new Rectangle((int)Position.X, (int)Position.Y, (int)(SourceRectangle.Width * Scale), (int)(SourceRectangle.Height * Scale));
+                return new Rectangle((int)(Position.X - Origin.X * Scale), (int)(Position.Y - Origin.Y * Scale) + 2, (int)(SourceRectangle.Width * Scale), (int)(SourceRectangle.Height * Scale));
             }
         }
 
