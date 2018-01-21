@@ -10,7 +10,8 @@ namespace NickZhaoPlatformer
 {
     class Platform : Sprite
     {
-        
+
+        public bool Collidable;
 
         //overrite the hitbox to add a offset
 
@@ -31,13 +32,14 @@ namespace NickZhaoPlatformer
             }
         }
 
-        public Platform(Vector2 position, Texture2D image, Color tint, float scale) 
+        public Platform(Vector2 position, Texture2D image, Color tint, float scale, bool collidable, bool visable) 
             : base(position, image, tint)
         {
             Scale = scale;
             SourceRectangle = new Rectangle(41, 38, 132, 69);
             Origin = new Vector2(SourceRectangle.Width / 2, SourceRectangle.Height / 2);
-            
+            Collidable = collidable;
+            Visible = visable;
         }
 
 

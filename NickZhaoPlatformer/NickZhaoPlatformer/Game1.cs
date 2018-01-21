@@ -21,6 +21,7 @@ namespace NickZhaoPlatformer
         Animation idle;
         Animation death;
         Texture2D Background;
+        
 
 
         List<SolidPlatform> solidPlatforms = new List<SolidPlatform>();
@@ -56,17 +57,11 @@ namespace NickZhaoPlatformer
             player.dictionary.Add(Player.States.Jump, jump);
             player.dictionary.Add(Player.States.Idle, idle);
             player.dictionary.Add(Player.States.Death, death);
-            spikes.Add(new Spikes(new Vector2(562, 620), Content.Load<Texture2D>("Spikes_in_Sonic_the_Hedgehog_4"), Color.White, 0.5f));
-           // spikes.Add(new Spikes(new Vector2(600, 700), Content.Load<Texture2D>("Spikes_in_Sonic_the_Hedgehog_4"), Color.White, 0.5f));
-            platforms.Add(new Platform(new Vector2(276, 912), Content.Load<Texture2D>("MyPlatforms"), Color.White, 1.5f));
-            platforms.Add(new Platform(new Vector2(626, 697), Content.Load<Texture2D>("MyPlatforms"), Color.White, 1.5f));
-            platforms.Add(new Platform(new Vector2(1013, 529), Content.Load<Texture2D>("MyPlatforms"), Color.White, 1.5f));
-            platforms.Add(new Platform(new Vector2(1391, 280), Content.Load<Texture2D>("MyPlatforms"), Color.White, 1.5f));
-            platforms.Add(new Platform(new Vector2(1728, 50), Content.Load<Texture2D>("MyPlatforms"), Color.White, 1.5f));
-            solidPlatforms.Add(new SolidPlatform(new Vector2(1223, 785), Content.Load<Texture2D>("MyPlatforms"), Color.White, 1.5f));
-            solidPlatforms.Add(new SolidPlatform(new Vector2(1223, 580 ), Content.Load<Texture2D>("MyPlatforms"), Color.White, 1.5f));
+          
+            // spikes.Add(new Spikes(new Vector2(600, 700), Content.Load<Texture2D>("Spikes_in_Sonic_the_Hedgehog_4"), Color.White, 0.5f));
 
-            Background = Content.Load<Texture2D>("BackTrump");
+            Levels.Level1(platforms, spikes,Content.Load<Texture2D>("MyPlatforms"), Content.Load<Texture2D>("Spikes_in_Sonic_the_Hedgehog_4"), Content.Load<Texture2D>("BackTrump"));
+
             base.Initialize();
 
 
@@ -108,6 +103,7 @@ namespace NickZhaoPlatformer
 
             singlePixel = new Texture2D(GraphicsDevice, 1, 1);
             singlePixel.SetData(new Color[] { Color.White });
+            Background = Content.Load<Texture2D>("BackTrump");
             // player.dictionary.Add(Player.States.Run, run.frames);
             //Factory Function
             //loop through doc.Root's children and load the sprites into the correct animation
@@ -154,7 +150,7 @@ namespace NickZhaoPlatformer
             bool onPlatform = false;
             for (int i = 0; i < platforms.Count; i++)
             {
-                if (player.Hitbox.Intersects(platforms[i].Hitbox))
+                if (platforms[i].Collidable && player.Hitbox.Intersects(platforms[i].Hitbox))
                 {
                     onPlatform = true;
                     Vector2 diff = platforms[i].Position - player.Position;
@@ -226,13 +222,17 @@ namespace NickZhaoPlatformer
 
             for (int i = 0; i < spikes.Count; i++)
             {
-                if (player.Hitbox.Intersects(spikes[i].Hitbox))
+                if (player.Hitbox.Intersects(spikes[i].Hitbox) && spikes[i].Collidable)
+                {
+
+                }
+                else
                 {
                     Exit();
-                }
-
+                }     
             }
 
+            
 
             base.Update(gameTime);
         }
@@ -262,7 +262,11 @@ namespace NickZhaoPlatformer
             }
             for (int j = 0; j < platforms.Count; j++)
             {
-                platforms[j].Draw(spriteBatch);
+                if (platforms[j].Visible)
+                {
+                    platforms[j].Draw(spriteBatch);
+                }
+               
             }
             for (int z = 0; z < solidPlatforms.Count; z++)
             {
@@ -272,21 +276,24 @@ namespace NickZhaoPlatformer
 
             for (int i = 0; i < spikes.Count; i++)
             {
-                spikes[i].Draw(spriteBatch);
-            }
+                if (spikes[i].Visible)
+                {
+                    spikes[i].Draw(spriteBatch);
+                }
+                }
 
            
             //for (int i = 0; i < solidPlatforms.Count; i++)
             //{
 
-           // spriteBatch.Draw(singlePixel, player.Hitbox, Color.Blue * 0.40f);
+          //  spriteBatch.Draw(singlePixel, player.Hitbox, Color.Blue * 0.40f);
             //}
             // spriteBatch.Draw(singlePixel, player.Position, Color.Red);
 
-         //   for (int i = 0; i < spikes.Count; i++)
-       //     {
-        //        spriteBatch.Draw(singlePixel, spikes[i].Hitbox, Color.Red * 0.40f);
-         //   }
+        //    for (int i = 0; i < spikes.Count; i++)
+       //   {
+         //      spriteBatch.Draw(singlePixel, spikes[i].Hitbox, Color.Red * 0.40f);
+        //    }
 
             
             //  spriteBatch.Draw(singlePixel, platform.Position, Color.Blue);

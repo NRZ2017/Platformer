@@ -18,7 +18,7 @@ namespace NickZhaoPlatformer
         public Vector2 velocity;
 
         public float gravity = 0.2f; //the closer jumpForce and gravity the slower the jump
-        public float jumpForce = -8;  //the further jumpForce and gravity the faster the jump or fall
+        public float jumpForce = -8.24f;  //the further jumpForce and gravity the faster the jump or fall
         public float ground;
         bool isAir = false;
         float screenHeight;

@@ -10,6 +10,7 @@ namespace NickZhaoPlatformer
 {
     class Sprite
     {
+        public bool Visible;
         public Vector2 Position;
         public Texture2D Image;
         public Color Tint;
@@ -45,6 +46,8 @@ namespace NickZhaoPlatformer
             Scale = 1;
             Effect = SpriteEffects.None;
             LayerDepth = 0;
+            Visible = true;
+
         }
 
         /// <summary>
@@ -59,6 +62,7 @@ namespace NickZhaoPlatformer
         {
             Scale = scale;
             Origin = new Vector2(image.Width / 2, image.Height / 2);
+            Visible = true;
         }
 
         public Sprite(Vector2 position, Texture2D image, Color tint, float scale, float rotation)
@@ -67,6 +71,7 @@ namespace NickZhaoPlatformer
             Scale = scale;
             Origin = new Vector2(image.Width / 2, image.Height / 2);
             Rotation = rotation;
+            Visible = true;
         }
 
         public virtual void Update(GameTime gameTime)

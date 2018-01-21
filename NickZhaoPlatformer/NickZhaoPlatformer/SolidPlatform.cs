@@ -35,7 +35,7 @@ namespace NickZhaoPlatformer
             }
         }
 
-        public SolidPlatform(Vector2 position, Texture2D image, Color tint, float scale) : base(position, image, tint, scale)
+        public SolidPlatform(Vector2 position, Texture2D image, Color tint, float scale, bool visible) : base(position, image, tint, scale, true, visible)
         {
             SourceRectangle = new Rectangle(401, 272, 140, 56);
             offset = 0;

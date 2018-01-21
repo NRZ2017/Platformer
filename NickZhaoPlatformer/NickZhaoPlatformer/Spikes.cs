@@ -10,9 +10,11 @@ namespace NickZhaoPlatformer
 {
     class Spikes : Sprite
     {
-        public Spikes(Vector2 position, Texture2D image, Color tint, float scale) : base(position, image, tint, scale)
+        public bool Collidable;
+        public Spikes(Vector2 position, Texture2D image, Color tint, float scale, bool collidable, bool visible) : base(position, image, tint, scale)
         {
-            
+            Collidable = collidable;
+            Visible = visible;
         }
     }
 }
