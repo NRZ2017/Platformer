@@ -21,21 +21,22 @@ namespace NickZhaoPlatformer
         Animation idle;
         Animation death;
         Texture2D Background;
-        
-
+        bool IsDead = false;
+        SpriteFont font;
+        Button button;
 
         List<SolidPlatform> solidPlatforms = new List<SolidPlatform>();
         List<Platform> platforms = new List<Platform>();
         List<Spikes> spikes = new List<Spikes>();
         Texture2D singlePixel;
-
+        Texture2D Door1;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             //graphics.IsFullScreen = true;
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-           
+
             graphics.PreferredBackBufferWidth = 1920;
             graphics.PreferredBackBufferHeight = 1080;
 
@@ -57,11 +58,13 @@ namespace NickZhaoPlatformer
             player.dictionary.Add(Player.States.Jump, jump);
             player.dictionary.Add(Player.States.Idle, idle);
             player.dictionary.Add(Player.States.Death, death);
-          
+            button = new Button(new Vector2(969, 677), Content.Load<Texture2D>("RetryButton"), Color.White, 1f);
+
             // spikes.Add(new Spikes(new Vector2(600, 700), Content.Load<Texture2D>("Spikes_in_Sonic_the_Hedgehog_4"), Color.White, 0.5f));
 
-            Levels.Level1(platforms, spikes,Content.Load<Texture2D>("MyPlatforms"), Content.Load<Texture2D>("Spikes_in_Sonic_the_Hedgehog_4"), Content.Load<Texture2D>("BackTrump"));
+            Levels.Level1(platforms, spikes, solidPlatforms, Content.Load<Texture2D>("MyPlatforms"), Content.Load<Texture2D>("Spikes_in_Sonic_the_Hedgehog_4"), Content.Load<Texture2D>("BackTrump"));
 
+            
             base.Initialize();
 
 
@@ -99,11 +102,13 @@ namespace NickZhaoPlatformer
                 {
                     death.frames.Add(new Rectangle(x, y, w, h));
                 }
+           
             }
 
             singlePixel = new Texture2D(GraphicsDevice, 1, 1);
             singlePixel.SetData(new Color[] { Color.White });
             Background = Content.Load<Texture2D>("BackTrump");
+            font = Content.Load<SpriteFont>("Font1");
             // player.dictionary.Add(Player.States.Run, run.frames);
             //Factory Function
             //loop through doc.Root's children and load the sprites into the correct animation
@@ -128,12 +133,21 @@ namespace NickZhaoPlatformer
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            if (IsDead)
+            {
+                if (button.Pressed())
+                {
+                    player.Position = new Vector2(100, 1020);
+                    IsDead = false;
+                }
+                return;
+            }
             MouseState ms = Mouse.GetState();
 
 
             KeyboardState ks = Keyboard.GetState();
 
-                Window.Title = $"X: {ms.X}, Y: {ms.Y}";
+            Window.Title = $"X: {ms.X}, Y: {ms.Y}";
 
             if (ms.LeftButton == ButtonState.Pressed)
             {
@@ -197,7 +211,7 @@ namespace NickZhaoPlatformer
                     if (angle > 15 && angle < 180 - 15 && player.velocity.Y > 0)
                     {
                         player.velocity.Y = 0;
-                       player.CurrentState = Player.States.Idle;
+                        player.CurrentState = Player.States.Idle;
                         player.Position.Y = solidPlatforms[q].Top;
                         player.ground = solidPlatforms[q].Top;
                     }
@@ -208,7 +222,7 @@ namespace NickZhaoPlatformer
                         )
                     {
                         player.velocity.X = 0;
-                     
+
                     }
 
                 }
@@ -224,15 +238,15 @@ namespace NickZhaoPlatformer
             {
                 if (player.Hitbox.Intersects(spikes[i].Hitbox) && spikes[i].Collidable)
                 {
-
+                    IsDead = true;
                 }
                 else
                 {
-                    Exit();
-                }     
+
+                }
             }
 
-            
+
 
             base.Update(gameTime);
         }
@@ -266,12 +280,15 @@ namespace NickZhaoPlatformer
                 {
                     platforms[j].Draw(spriteBatch);
                 }
-               
+
             }
             for (int z = 0; z < solidPlatforms.Count; z++)
             {
-                solidPlatforms[z].Draw(spriteBatch);
-            }
+                if (solidPlatforms[z].Visible)
+                {
+                    solidPlatforms[z].Draw(spriteBatch);
+                }
+                }
 
 
             for (int i = 0; i < spikes.Count; i++)
@@ -280,22 +297,27 @@ namespace NickZhaoPlatformer
                 {
                     spikes[i].Draw(spriteBatch);
                 }
-                }
+            }
 
-           
+            if (IsDead)
+            {
+                spriteBatch.DrawString(font, "Game Over. Try Again?", new Vector2(700, 340), Color.Black);
+                button.Draw(spriteBatch);
+            }
+
             //for (int i = 0; i < solidPlatforms.Count; i++)
             //{
 
-          //  spriteBatch.Draw(singlePixel, player.Hitbox, Color.Blue * 0.40f);
+            //6  spriteBatch.Draw(singlePixel, button.Hitbox, Color.Blue * 0.40f);
             //}
             // spriteBatch.Draw(singlePixel, player.Position, Color.Red);
 
-        //    for (int i = 0; i < spikes.Count; i++)
-       //   {
-         //      spriteBatch.Draw(singlePixel, spikes[i].Hitbox, Color.Red * 0.40f);
-        //    }
+            //    for (int i = 0; i < spikes.Count; i++)
+            //   {
+            //      spriteBatch.Draw(singlePixel, spikes[i].Hitbox, Color.Red * 0.40f);
+            //    }
+           
 
-            
             //  spriteBatch.Draw(singlePixel, platform.Position, Color.Blue);
             spriteBatch.End();
 

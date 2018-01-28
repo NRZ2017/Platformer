@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SourceFile>C:/Users/NickZhao/Desktop/Platformer/NickZhaoPlatformer/NickZhaoPlatformer/Content/Font1.spritefont</SourceFile>
+  <SourceTime>2018-01-28T14:12:55.9489998-08:00</SourceTime>
+  <DestFile>C:/Users/NickZhao/Desktop/Platformer/NickZhaoPlatformer/NickZhaoPlatformer/Content/bin/Windows/Font1.xnb</DestFile>
+  <DestTime>2018-01-28T14:12:58.9486034-08:00</DestTime>
+  <Importer>FontDescriptionImporter</Importer>
+  <ImporterTime>2017-03-01T07:05:36-08:00</ImporterTime>
+  <Processor>FontDescriptionProcessor</Processor>
+  <ProcessorTime>2017-03-01T07:05:36-08:00</ProcessorTime>
+  <Parameters>
+    <Key>PremultiplyAlpha</Key>
+    <Value>True</Value>
+  </Parameters>
+  <Parameters>
+    <Key>TextureFormat</Key>
+    <Value>Compressed</Value>
+  </Parameters>
+  <Dependencies />
+  <BuildAsset />
+  <BuildOutput />
+</PipelineBuildEvent>
