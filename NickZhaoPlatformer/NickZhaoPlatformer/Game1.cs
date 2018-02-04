@@ -24,12 +24,14 @@ namespace NickZhaoPlatformer
         bool IsDead = false;
         SpriteFont font;
         Button button;
+        Random gen;
+ 
 
         List<SolidPlatform> solidPlatforms = new List<SolidPlatform>();
         List<Platform> platforms = new List<Platform>();
         List<Spikes> spikes = new List<Spikes>();
         Texture2D singlePixel;
-        Texture2D Door1;
+        Sprite Door1;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -49,22 +51,27 @@ namespace NickZhaoPlatformer
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            player = new Player(new Vector2(100, 1020), Content.Load<Texture2D>("sheet"), Color.White, GraphicsDevice.Viewport.Height);
+            player = new Player(new Vector2(100, 1020), Content.Load<Texture2D>("sheet"), Color.White, 
+                GraphicsDevice.Viewport.Height);
             run = new Animation();
             jump = new Animation();
             idle = new Animation();
             death = new Animation();
+            platforms = new List<Platform>();
+            solidPlatforms = new List<SolidPlatform>();
+            spikes = new List<Spikes>();
             player.dictionary.Add(Player.States.Run, run);
             player.dictionary.Add(Player.States.Jump, jump);
             player.dictionary.Add(Player.States.Idle, idle);
             player.dictionary.Add(Player.States.Death, death);
             button = new Button(new Vector2(969, 677), Content.Load<Texture2D>("RetryButton"), Color.White, 1f);
-
+            Door1 = new Sprite(new Vector2(1875, 181), Content.Load<Texture2D>("Doorz"), Color.White, 1f);
             // spikes.Add(new Spikes(new Vector2(600, 700), Content.Load<Texture2D>("Spikes_in_Sonic_the_Hedgehog_4"), Color.White, 0.5f));
 
-            Levels.Level1(platforms, spikes, solidPlatforms, Content.Load<Texture2D>("MyPlatforms"), Content.Load<Texture2D>("Spikes_in_Sonic_the_Hedgehog_4"), Content.Load<Texture2D>("BackTrump"));
+            Levels.Level1(platforms, spikes, solidPlatforms, Content.Load<Texture2D>("MyPlatforms"), 
+                Content.Load<Texture2D>("Spikes_in_Sonic_the_Hedgehog_4"), Content.Load<Texture2D>("BackTrump"));
 
-            
+
             base.Initialize();
 
 
@@ -102,13 +109,14 @@ namespace NickZhaoPlatformer
                 {
                     death.frames.Add(new Rectangle(x, y, w, h));
                 }
-           
+
             }
 
             singlePixel = new Texture2D(GraphicsDevice, 1, 1);
             singlePixel.SetData(new Color[] { Color.White });
             Background = Content.Load<Texture2D>("BackTrump");
             font = Content.Load<SpriteFont>("Font1");
+            gen = new Random();
             // player.dictionary.Add(Player.States.Run, run.frames);
             //Factory Function
             //loop through doc.Root's children and load the sprites into the correct animation
@@ -246,8 +254,21 @@ namespace NickZhaoPlatformer
                 }
             }
 
-
-
+            if (Door1.Hitbox.Intersects(player.Hitbox))
+            {
+                platforms = new List<Platform>();
+                solidPlatforms = new List<SolidPlatform>();
+                spikes = new List<Spikes>();
+                Levels.Level2(platforms, spikes, solidPlatforms, Content.Load<Texture2D>("MyPlatforms"),
+                    Content.Load<Texture2D>("Spikes_in_Sonic_the_Hedgehog_4"), Content.Load<Texture2D>("BackTrump"), gen, GraphicsDevice);
+            }
+            for (int i = 0; i < platforms.Count; i++)
+            {
+                if (platforms[i].Hitbox.Intersects(player.Hitbox))
+                    {
+                    platforms[i].Visible = true;
+                }
+            }
             base.Update(gameTime);
         }
 
@@ -288,7 +309,7 @@ namespace NickZhaoPlatformer
                 {
                     solidPlatforms[z].Draw(spriteBatch);
                 }
-                }
+            }
 
 
             for (int i = 0; i < spikes.Count; i++)
@@ -305,20 +326,21 @@ namespace NickZhaoPlatformer
                 button.Draw(spriteBatch);
             }
 
+            Door1.Draw(spriteBatch);
             //for (int i = 0; i < solidPlatforms.Count; i++)
             //{
 
             //6  spriteBatch.Draw(singlePixel, button.Hitbox, Color.Blue * 0.40f);
             //}
-            // spriteBatch.Draw(singlePixel, player.Position, Color.Red);
+           //  spriteBatch.Draw(singlePixel, player.Hitbox, Color.Red * 0.6f);
 
             //    for (int i = 0; i < spikes.Count; i++)
             //   {
             //      spriteBatch.Draw(singlePixel, spikes[i].Hitbox, Color.Red * 0.40f);
             //    }
-           
 
-            //  spriteBatch.Draw(singlePixel, platform.Position, Color.Blue);
+
+             // spriteBatch.Draw(singlePixel, Door1.Hitbox, Color.Blue);
             spriteBatch.End();
 
             base.Draw(gameTime);

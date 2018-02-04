@@ -23,8 +23,15 @@ namespace NickZhaoPlatformer
             spikes.Add(new Spikes(new Vector2(1391, 205), spikesImage, Color.White, 0.5f, false, true));
             spikes.Add(new Spikes(new Vector2(1456, 205), spikesImage, Color.White, 0.5f, false, true));
         }
-        
 
-        
-    }
+        static public void Level2(List<Platform> platform, List<Spikes> spikes, List<SolidPlatform> solidPlatforms, Texture2D platformImage, Texture2D spikesImage, Texture2D Background, Random gen, GraphicsDevice gd)
+        {
+            platform.Add(new Platform(new Vector2(gen.Next(1, gd.Viewport.Width), gen.Next(1, gd.Viewport.Height)), platformImage, Color.White, 1.5f, true, true));
+            platform.Add(new Platform(new Vector2(gen.Next(1, gd.Viewport.Width), gen.Next(1, gd.Viewport.Height)), platformImage, Color.White, 1.5f, true, true));
+            platform.Add(new Platform(new Vector2(gen.Next(1, gd.Viewport.Width), gen.Next(1, gd.Viewport.Height)), platformImage, Color.White, 1.5f, true, true));
+            platform.Add(new Platform(new Vector2(gen.Next(1, gd.Viewport.Width), gen.Next(1, gd.Viewport.Height)), platformImage, Color.White, 1.5f, true, true));
+            platform.Add(new Platform(new Vector2(gen.Next(1, gd.Viewport.Width), gen.Next(1, gd.Viewport.Height)), platformImage, Color.White, 1.5f, false, true));
+
+        }
+            }
 }

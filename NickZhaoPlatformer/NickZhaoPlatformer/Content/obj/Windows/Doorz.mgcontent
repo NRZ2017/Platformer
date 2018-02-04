@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/NickZhao/Desktop/Platformer/NickZhaoPlatformer/NickZhaoPlatformer/Content/Spikes_in_Sonic_the_Hedgehog_4.png</SourceFile>
-  <SourceTime>2018-01-14T13:19:39.4619611-08:00</SourceTime>
-  <DestFile>C:/Users/NickZhao/Desktop/Platformer/NickZhaoPlatformer/NickZhaoPlatformer/Content/bin/Windows/Spikes_in_Sonic_the_Hedgehog_4.xnb</DestFile>
-  <DestTime>2018-02-04T13:29:37.7568513-08:00</DestTime>
+  <SourceFile>C:/Users/NickZhao/Desktop/Platformer/NickZhaoPlatformer/NickZhaoPlatformer/Content/Doorz.png</SourceFile>
+  <SourceTime>2018-02-04T13:28:30.3207149-08:00</SourceTime>
+  <DestFile>C:/Users/NickZhao/Desktop/Platformer/NickZhaoPlatformer/NickZhaoPlatformer/Content/bin/Windows/Doorz.xnb</DestFile>
+  <DestTime>2018-02-04T13:29:38.0693653-08:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2017-03-01T07:05:36-08:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

@@ -30,3 +30,4 @@ C:\Users\NickZhao\Desktop\Platformer\NickZhaoPlatformer\NickZhaoPlatformer\bin\W
 C:\Users\NickZhao\Desktop\Platformer\NickZhaoPlatformer\NickZhaoPlatformer\bin\Windows\x86\Debug\Content\Spikes_in_Sonic_the_Hedgehog_4.xnb
 C:\Users\NickZhao\Desktop\Platformer\NickZhaoPlatformer\NickZhaoPlatformer\bin\Windows\x86\Debug\Content\Font1.xnb
 C:\Users\NickZhao\Desktop\Platformer\NickZhaoPlatformer\NickZhaoPlatformer\bin\Windows\x86\Debug\Content\RetryButton.xnb
+C:\Users\NickZhao\Desktop\Platformer\NickZhaoPlatformer\NickZhaoPlatformer\bin\Windows\x86\Debug\Content\Doorz.xnb
